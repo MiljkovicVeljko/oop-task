@@ -2,6 +2,13 @@ import java.util.ArrayList;
 
 public class UpisGodine extends AktivnostStudenta {
     private int godinaKojuUpisuje;
+
+    public UpisGodine(int godina, int mesec, int dan, int godinaKojuUpisuje, ArrayList<Predmet> prenetiPredmeti) {
+        super(godina, mesec, dan);
+        this.godinaKojuUpisuje = godinaKojuUpisuje;
+        this.prenetiPredmeti = prenetiPredmeti;
+    }
+
     private ArrayList<Predmet> prenetiPredmeti;
 
     public ArrayList<Predmet> getPrenetiPredmeti() {
@@ -23,6 +30,12 @@ public class UpisGodine extends AktivnostStudenta {
     public UpisGodine(int godina, int mesec, int dan) {
         super(godina, mesec, dan);
         prenetiPredmeti = new ArrayList<>();
+    }
+
+    public UpisGodine(int godina, int mesec, int dan, int godKU) {
+        super(godina, mesec, dan);
+        prenetiPredmeti = new ArrayList<>();
+        this.godinaKojuUpisuje = godKU;
     }
 
     @Override
