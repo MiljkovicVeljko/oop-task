@@ -9,8 +9,13 @@ public class Projekat extends Obuka {
         this.maximalanBrojPolaznika = maximalanBrojPolaznika;
     }
 
-    public Projekat(String naziv, int minimalanBrojPolaznika, Oblast oblast, int maximalanBrojPolaznika) {
+    public Projekat(String naziv, Oblast oblast, int minimalanBrojPolaznika, int maximalanBrojPolaznika) {
         super(naziv, minimalanBrojPolaznika, oblast);
         this.maximalanBrojPolaznika = maximalanBrojPolaznika;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }

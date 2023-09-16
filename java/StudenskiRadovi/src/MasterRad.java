@@ -1,0 +1,2 @@
+public class MasterRad {
+}

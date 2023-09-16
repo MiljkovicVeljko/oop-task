@@ -5,7 +5,7 @@ public class Polaznik implements Registracija {
     private String ime;
     private String prezime;
     private String email;
-    private List<Obuka> obuke;
+    private List<ObukaPolaznika> obuke;
 
     public Polaznik(String ime, String prezime, String email) {
         this.ime = ime;
@@ -38,16 +38,52 @@ public class Polaznik implements Registracija {
         this.email = email;
     }
 
-    public List<Obuka> getObuke() {
+    public List<ObukaPolaznika> getObuke() {
         return obuke;
     }
 
-    public void setObuke(List<Obuka> obuke) {
+    public void setObuke(List<ObukaPolaznika> obuke) {
         this.obuke = obuke;
     }
 
     @Override
     public boolean registruj(Obuka o) {
+        if (this.getEmail() == null)
+            return false;
+        if (!this.getEmail().contains("@"))
+            return false;
+        for (ObukaPolaznika op: obuke) {
+            if (op.getObuka().equals(o)) {
+                return false;
+            }
+        }
+        if (o instanceof Kurs) {
+            Kurs k = (Kurs)o;
+            for (Kurs preduslov : k.getPreduslovi()) {
+                boolean vecSlusao = false;
+                for (ObukaPolaznika op : this.getObuke()) {
+                    if (op.getObuka().equals(preduslov)) {
+                        vecSlusao = true;
+                    }
+                }
+                if (vecSlusao == false) {
+                    return false;
+                }
+            }
+        } else if (o instanceof Projekat) {
+            Projekat p = (Projekat)o;
+            int maksBroj = p.getMaximalanBrojPolaznika();
+            int brPolaznika = p.getObukePolaznika().size();
+
+            if (brPolaznika >= maksBroj) {
+                return false;
+            }
+        }
+        ObukaPolaznika novaObuka = new ObukaPolaznika(this);
+        novaObuka.setObuka(o);
+        this.getObuke().add(novaObuka);
+        o.getObukePolaznika().add(novaObuka);
+
         return false;
     }
 

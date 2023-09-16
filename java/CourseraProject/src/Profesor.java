@@ -6,7 +6,7 @@ public class Profesor implements Registracija{
     private String prezime;
     private String id;
     private Oblast oblast;
-    private List<Oblast> obuke;
+    private List<Obuka> obuke;
 
     public Profesor(String ime, String prezime, String id, Oblast oblast) {
         this.ime = ime;
@@ -48,11 +48,11 @@ public class Profesor implements Registracija{
         this.oblast = oblast;
     }
 
-    public List<Oblast> getObuke() {
+    public List<Obuka> getObuke() {
         return obuke;
     }
 
-    public void setObuke(List<Oblast> obuke) {
+    public void setObuke(List<Obuka> obuke) {
         this.obuke = obuke;
     }
 
@@ -61,7 +61,6 @@ public class Profesor implements Registracija{
         if (this.oblast != o.getOblast()) {
             return false;
         }
-        int brojObuka = 0;
         for (Obuka obuka : obuke) {
             if (obuka.equals(o)) {
                 return false;
@@ -71,6 +70,17 @@ public class Profesor implements Registracija{
         if (obuke.size() > 3) {
             return false;
         }
+
+        if (o instanceof Projekat) {
+            Projekat p = (Projekat)o;
+            int brojP = p.getMaximalanBrojPolaznika();
+            int predavaci = o.getPredavaci().size();
+            if (predavaci > brojP) {
+                return false;
+            }
+        }
+        this.getObuke().add(o);
+        o.getPredavaci().add(this);
 
         return false;
     }
